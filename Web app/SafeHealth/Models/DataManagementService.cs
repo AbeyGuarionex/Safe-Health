@@ -9,6 +9,7 @@
 
 using SafeHealth.DataAccess;
 using SafeHealth.Domain;
+using System.Xml.Linq;
 
 namespace SafeHealth.Models
 {
@@ -22,5 +23,11 @@ namespace SafeHealth.Models
         public string GetDocuments(string userCode);
 
         public string GetUserCode(string userName, string userLastNamePaternal,string userEmail);
+
+        public string UploadFile(IFormFile document, string userCode, string userEmail, string documentTitle);
+
+        public string GetPatientsDocuments(string userCode);
+
+        public byte[] GetDocumentContent(string documentTitle, DateTime uploadedDocDate, string documentType, string userCode);
     }
 }

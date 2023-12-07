@@ -1,1 +1,60 @@
-﻿<p>Paciente ver su data</p>
+﻿@{
+    Layout = "~/Views/Shared/_LayoutPatient.cshtml";
+    ViewData["Title"] = "View Data";
+}
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+<div id="documentsTableContainer" style="margin: 20px auto; width: 80%;">
+    <!-- Table will be displayed here -->
+</div>
+
+<script>
+    // Function to make an AJAX request and update the table
+    function loadDocuments() {
+        // Make an AJAX request to the GetPatientsDocuments endpoint
+        $.ajax({
+            url: '/DataManagement/GetPatientsDocuments',
+            type: 'GET',
+            success: function (data) {
+                // Update the content of the documentsTableContainer div with the received data
+                var formattedTable = "<table class='table table-bordered table-striped' style='text-align: center; border-collapse: collapse; width: 100%;'>" +
+                    data.substring(data.indexOf('<thead>')) + "</table>";
+
+                $('#documentsTableContainer').html(formattedTable);
+            },
+            error: function (error) {
+                console.error('Error fetching documents:', error);
+            }
+        });
+    }
+
+    function showDocument(button) {
+        // Find the closest table row (tr) to the clicked button
+        var row = $(button).closest('tr');
+
+        // Extract data from the row
+        var documentTitle = row.find('td:eq(0)').text().trim();  // Index 0 is the first column
+        var uploadedDocDate = row.find('td:eq(1)').text().trim(); // Index 1 is the second column
+        var documentType = row.find('td:eq(2)').text().trim();    // Index 2 is the third column
+
+        // Log the extracted data for debugging
+        console.log('Document Title:', documentTitle);
+        console.log('Uploaded Doc Date:', uploadedDocDate);
+        console.log('Document Type:', documentType);
+
+        // URL to fetch the PDF file
+        var pdfUrl = `/DataManagement/OpenDocument?documentTitle=${documentTitle}&uploadedDocDate=${uploadedDocDate}&documentType=${documentType}`;
+
+        // Open a new window or tab with the PDF
+        window.open(pdfUrl, '_blank');
+    }
+
+
+    // Load documents when the page is loaded
+    $(document).ready(function () {
+        loadDocuments();
+    });
+</script>

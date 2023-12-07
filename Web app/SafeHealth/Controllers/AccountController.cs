@@ -67,6 +67,8 @@ namespace SafeHealth.Controllers
 
                 HttpContext.Session.SetString("userOfficeCode", user.UserOfficeCodeFk);
 
+                HttpContext.Session.SetString("userCode", user.UserCodePk1);
+
                 string userType = user.UserType;
 
                 if (userType == "D")
@@ -120,14 +122,18 @@ namespace SafeHealth.Controllers
         [Route("Logout")]
         public IActionResult Logout()
         {
+
+            ViewBag.userType = HttpContext.Session.GetString("userType");
+
             HttpContext.Session.Remove("userEmail");
             HttpContext.Session.Remove("userName");
             HttpContext.Session.Remove("userType");
             HttpContext.Session.Remove("userLastName");
             HttpContext.Session.Remove("userOfficeCode");
+            HttpContext.Session.Remove("userCode");
 
 
-
+            
 
             return RedirectToAction("Index");
         }

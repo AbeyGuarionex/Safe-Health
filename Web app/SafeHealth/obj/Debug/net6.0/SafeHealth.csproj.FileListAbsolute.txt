@@ -203,3 +203,5 @@ C:\Users\abeyv\Documents\Universidad\Safe-Health-main\Web app\SafeHealth\obj\Deb
 C:\Users\abeyv\Documents\Universidad\Safe-Health-main\Web app\SafeHealth\obj\Debug\net6.0\SafeHealth.genruntimeconfig.cache
 C:\Users\abeyv\Documents\Universidad\Safe-Health-main\Web app\SafeHealth\obj\Debug\net6.0\ref\SafeHealth.dll
 C:\Users\abeyv\Documents\Universidad\Safe-Health-main\Web app\SafeHealth\bin\Debug\net6.0\AppConfig.json
+C:\Users\abeyv\Documents\Universidad\Safe-Health-main\Web app\SafeHealth\obj\Debug\net6.0\scopedcss\Views\Shared\_LayoutDoctor.cshtml.rz.scp.css
+C:\Users\abeyv\Documents\Universidad\Safe-Health-main\Web app\SafeHealth\obj\Debug\net6.0\scopedcss\Views\Shared\_LayoutPatient.cshtml.rz.scp.css

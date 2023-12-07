@@ -32,6 +32,8 @@ namespace SafeHealth.Controllers
         {
             string checkIfLogedIn = HttpContext.Session.GetString("userEmail");
 
+            ViewBag.userType = HttpContext.Session.GetString("userType");
+
             if (checkIfLogedIn != null)
             {
                 Response.Headers.Add("Cache-Control", "no-cache, no-store, must-revalidate");

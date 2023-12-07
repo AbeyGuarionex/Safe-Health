@@ -16,6 +16,8 @@ using System;
 using System.Data.Common;
 using System.Xml.Linq;
 using Microsoft.AspNetCore.Http;
+using System.ComponentModel.DataAnnotations;
+using System.Net.Http.Headers;
 
 
 namespace SafeHealth.Controllers
@@ -27,7 +29,7 @@ namespace SafeHealth.Controllers
         /// <summary>The user that is signing in.</summary>
         private User user;
 
-        private string userOfficeCode; 
+        private string userOfficeCode;
 
         private DataManagementService dataManagementService;
 
@@ -99,7 +101,74 @@ namespace SafeHealth.Controllers
 
         }
 
+        [HttpPost]
+        [Route("UploadDocument")]
+        public IActionResult UploadDocument(IFormFile document, string documentTitle)
+        {
 
+            string userCode = HttpContext.Session.GetString("userCode");
+
+            string userEmail = HttpContext.Session.GetString("userEmail");
+
+            string result = dataManagementService.UploadFile(document, userCode, userEmail, documentTitle);
+
+            return Content(result);
+        }
+
+        [HttpGet]
+        [Route("GetPatientsDocuments")]
+        public IActionResult GetPatientsDocuments()
+        {
+            string userCode = HttpContext.Session.GetString("userCode");
+
+            string result = dataManagementService.GetPatientsDocuments(userCode);
+
+            return Content(result);
+
+        }
+
+        [HttpGet]
+        [Route("OpenDocument")]
+        public IActionResult OpenDocument(string documentTitle, DateTime uploadedDocDate, string documentType)
+        {
+            string userCode = HttpContext.Session.GetString("userCode");
+
+            byte[] documentContent = dataManagementService.GetDocumentContent(documentTitle, uploadedDocDate, documentType, userCode);
+
+            if (documentContent != null)
+            {
+                // Determine content type based on the document type
+                string contentType = GetContentType(documentType);
+
+                // Set the Content-Disposition header to "inline"
+                Response.Headers["Content-Disposition"] = new ContentDispositionHeaderValue("inline")
+                {
+                    FileName = $"{documentTitle}.{documentType.ToLower()}"
+                }.ToString();
+
+                // Return the file with appropriate content type and file name
+                return File(documentContent, contentType);
+            }
+            else
+            {
+                return Content("Document not found");
+            }
+        }
+
+
+
+        private string GetContentType(string documentType)
+        {
+            switch (documentType.ToLower())
+            {
+                case "pdf":
+                    return "application/pdf";
+                case "png":
+                    return "image/png";
+                default:
+                    return "application/octet-stream"; // Default content type if not recognized
+            }
+        }
     }
 }
 

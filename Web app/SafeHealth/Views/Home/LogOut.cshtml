@@ -1,5 +1,10 @@
-﻿@{
-    Layout = "~/Views/Shared/_Layout.cshtml";
+﻿@if ((string)ViewBag.userType == "Patient")
+{
+    Layout = "~/Views/Shared/_LayoutPatient.cshtml";
+}
+else
+{
+    Layout = "~/Views/Shared/_LayoutDoctor.cshtml";
 }
 @{
     ViewData["Title"] = "Log Out";
