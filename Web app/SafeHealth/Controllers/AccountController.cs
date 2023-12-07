@@ -65,6 +65,8 @@ namespace SafeHealth.Controllers
 
                 HttpContext.Session.SetString("userLastName", user.PaternalLastName);
 
+                HttpContext.Session.SetString("userOfficeCode", user.UserOfficeCodeFk);
+
                 string userType = user.UserType;
 
                 if (userType == "D")
@@ -122,6 +124,7 @@ namespace SafeHealth.Controllers
             HttpContext.Session.Remove("userName");
             HttpContext.Session.Remove("userType");
             HttpContext.Session.Remove("userLastName");
+            HttpContext.Session.Remove("userOfficeCode");
 
 
 

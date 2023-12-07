@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using SafeHealth.Domain;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
-using SafeHealth.Domain;
 
 namespace SafeHealth.DataAccess
 {
@@ -24,11 +24,11 @@ namespace SafeHealth.DataAccess
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            if (!optionsBuilder.IsConfigured)
-            {
-#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
-                optionsBuilder.UseSqlServer("Data Source=(LocalDB)\\MSSQLLocalDB;AttachDbFilename=C:\\Users\\abeyv\\Documents\\Universidad\\5 ano 1 sesmestre\\SICI Omar\\Git\\Safe-Health-main\\Safe-Health-main\\Web app\\SafeHealth\\SafeHealthDB.mdf;Integrated Security=True;Connect Timeout=30");
-            }
+            IConfigurationRoot configuration = new ConfigurationBuilder()
+           .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
+           .AddJsonFile("appsettings.json")
+           .Build();
+            optionsBuilder.UseSqlServer(configuration.GetConnectionString("SafeHealthDB"));
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -56,6 +56,11 @@ namespace SafeHealth.DataAccess
 
                 entity.Property(e => e.Document1).HasColumnName("document");
 
+                entity.Property(e => e.DocumentTitle)
+                    .HasMaxLength(25)
+                    .IsUnicode(false)
+                    .HasColumnName("documentTitle");
+
                 entity.Property(e => e.DocumentType)
                     .HasMaxLength(5)
                     .IsUnicode(false)
@@ -70,7 +75,7 @@ namespace SafeHealth.DataAccess
                     .WithMany(p => p.Documents)
                     .HasForeignKey(d => new { d.UserCodeFk1, d.UserEmailFk2 })
                     .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__DOCUMENTS__160F4887");
+                    .HasConstraintName("FK__DOCUMENTS__2EDAF651");
             });
 
             modelBuilder.Entity<MedicalInsurance>(entity =>

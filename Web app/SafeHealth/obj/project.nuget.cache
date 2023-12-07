@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "Aivq68zRA+4i2v1AA/NZtesBTPXCidLUGCAjr2+Zz2/8wxCNDrV40LDz+Jg5VearZs/MF3AakC89njcje8EkzA==",
+  "dgSpecHash": "1DNXCFI7RTP9D10qFWsehmkRIOQMNnCIIRZlkEqhBqL5bhKRrWhDObhshk75qvkQnTqFGPHmqkbz9xOEZ2W8Vg==",
   "success": true,
-  "projectFilePath": "C:\\Users\\abeyv\\Documents\\Universidad\\5 ano 1 sesmestre\\SICI Omar\\Git\\Safe-Health-main\\Safe-Health-main\\Web app\\SafeHealth\\SafeHealth.csproj",
+  "projectFilePath": "C:\\Users\\abeyv\\Documents\\Universidad\\Safe-Health-main\\Web app\\SafeHealth\\SafeHealth.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\abeyv\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\abeyv\\.nuget\\packages\\microsoft.aspnetcore.cryptography.internal\\2.2.0\\microsoft.aspnetcore.cryptography.internal.2.2.0.nupkg.sha512",

@@ -42,6 +42,21 @@
             <h1 class="display-4">Welcome @ViewBag.userType, @ViewBag.userName @ViewBag.userLastName!</h1>
             <p class="lead">You have successfully logged in to Safe Health.</p>
             <hr class="my-4">
+            @if ((string)ViewBag.userType == "Patient")
+            {
+                <div>
+                    <a class="btn btn-primary btn-lg" href="@Url.Action("PatientUploadData","DataManagement")" role="button">Upload Data</a>
+                </div>
+
+                <p></p>
+                <div>
+                    <a class="btn btn-primary btn-lg" href="@Url.Action("PatientViewData","DataManagement")" role="button">View Uploaded Data</a>
+                </div>
+            }
+            else
+            {
+                <a class="btn btn-primary btn-lg" href="@Url.Action("DoctorViewPatients","DataManagement")" role="button">View Patients</a>
+            }
             <br/>
              <br/>
 

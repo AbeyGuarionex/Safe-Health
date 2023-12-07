@@ -1,0 +1,257 @@
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@{
+    ViewData["Title"] = "View Documents";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Info Display</title>
+    <link rel="stylesheet" href="../css/styles.css">
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            position: relative;
+            /* Optional: Background color for the body */
+        }
+
+        .flexbox-wrapper {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .top-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px;
+            background-color: #fff;
+            /* Adjust if needed */
+        }
+
+        .top-left-logo {
+            top: 10px;
+            left: 10px;
+            max-width: 250px;
+        }
+
+
+        .top-sign-in-image {
+            display: block;
+            margin: 0 auto 20px;
+            /* Centers the image above the sign in text */
+            width: 50px;
+            /* Adjust as necessary */
+        }
+
+        .login-container {
+            width: 340px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            background: #fff;
+            /* Removed margin here since flexbox is taking care of centering */
+        }
+
+        .display-container {
+            width: 470px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            background: #fff;
+        }
+
+        .input-wrapper {
+            margin-bottom: 10px;
+        }
+
+        input[type="email"],
+        input[type="password"] {
+            width: calc(100% - 20px);
+            /* Adjust width to prevent cutting off */
+            padding: 10px;
+            margin: 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+
+        .login-button {
+            width: 100%;
+            background-color: #0073b1;
+            color: white;
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+            .login-button:hover {
+                background-color: #005f86;
+            }
+
+        .alternative {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .crud-container {
+            width: 80%;
+            max-width: 800px;
+            /* Adjust size as necessary */
+            margin: 20px auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            background: #fff;
+            text-align: center;
+            /* Center align the content */
+        }
+
+        .crud-image {
+            max-width: 100%;
+            height: auto;
+            margin-bottom: 20px;
+            /* Space between image and form */
+        }
+
+        /* Style for document list */
+        #document-list {
+            margin-top: 20px;
+        }
+
+        .welcome-message {
+            text-align: center;
+            margin: 30px 0;
+            /* Adjust top and bottom margin as needed */
+        }
+
+        .table-review {
+            text-align: center;
+            width: 80%;
+            margin: 20px auto;
+            border-collapse: collapse;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+            .table-review th {
+                background-color: #4f7bae;
+                color: #fff;
+            }
+
+            .table-review th,
+            td {
+                padding: 12px;
+                text-align: left;
+                border-bottom: 1px solid #ddd;
+            }
+
+
+
+            .table-review tr:hover {
+                background-color: #f5f5f5;
+            }
+
+        .table-patient-list {
+            text-align: left;
+            height: 15%;
+            max-height: 220px;
+            width: 40%;
+            margin: 8px;
+            border-collapse: collapse;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            overflow-y: scroll;
+        }
+
+
+            .table-patient-list th {
+                background-color: #4f7bae;
+                color: #fff;
+                text-align: left;
+                margin: auto;
+            }
+
+            .table-patient-list th,
+            td {
+                padding: 12px;
+                text-align: left;
+                border-bottom: 1px solid #ddd;
+                margin: auto
+            }
+
+
+            .table-patient-list td {
+                cursor: pointer;
+            }
+
+
+
+            .table-patient-list tr:hover {
+                background-color: #f5f5f5;
+            }
+
+    </style>
+
+</head>
+
+<body>
+
+    <img src="../images/Alphalogo.jpg" alt="Logo" class="top-left-logo">
+    <div class="flexbox-wrapper">
+        <div class="display-container">
+            <img src="../images/healthimage.jpg" alt="Display" class="top-sign-in-image">
+            <h2>Patient's Records</h2>
+            <div class="table-review">
+                <table>
+                    <tr>
+                        <th>Name</th>
+                        <th>Patient</th>
+                        <th>Date Uploaded</th>
+                        <th>Document</th>
+                    </tr>
+                    <tr>
+                        <td>name</td>
+                        <td>patient_name</td>
+                        <td>date</td>
+                        <td> <button onclick=openDocument()> Show</button></td>
+                    </tr>
+                </table>
+            </div>
+            <!-- Display Documents -->
+            <div id="document-list">
+                <!-- Dynamically populated list of documents -->
+            </div>
+        </div>
+    </div>
+
+
+    <script>
+        function openDocument() {
+
+            const documentPath = "";
+
+            // This code opens the other html document in a new window
+            window.open(documentPath, '_blank');
+            //***
+        }
+
+
+    </script>
+
+</body>
+
+</html>

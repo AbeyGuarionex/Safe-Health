@@ -25,6 +25,7 @@ builder.Services.AddSession();
 
 builder.Services.AddScoped<AccountService, AccountServiceImpl>();
 
+builder.Services.AddScoped<DataManagementService, DataManagementServiceImpl>();
 
 var app = builder.Build();
 
