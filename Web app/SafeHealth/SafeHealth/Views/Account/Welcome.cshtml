@@ -1,0 +1,79 @@
+﻿@if ((string)ViewBag.userType == "Patient")
+{
+    Layout = "~/Views/Shared/_LayoutPatient.cshtml";
+}
+else
+{
+    Layout = "~/Views/Shared/_LayoutDoctor.cshtml";
+}
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Welcome</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <style>
+        /* Add custom styles for the welcome page */
+        .jumbotron {
+            background-image: linear-gradient(to bottom, #f5f5f5, #e9ecef);
+            text-align: center;
+        }
+
+        .container {
+            padding-top: 10px;
+            margin-bottom: 50px;
+        }
+
+        h1 {
+            font-weight: bold;
+            color: #343a40;
+        }
+
+        p {
+            font-size: 18px;
+            color: #6c757d;
+        }
+
+        .welcomeButton {
+            width: 25%;
+            min-width: 250px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="jumbotron">
+
+
+            <img src="~/Resources/Images/healthimage.jpg" alt="" style="border-radius: 50%; width:200px;height:150px;">
+            <h1 class="display-4">Welcome @ViewBag.userType, @ViewBag.userName @ViewBag.userLastName!</h1>
+            <p class="lead">You have successfully logged in to Safe Health.</p>
+            <hr class="my-4">
+            @if ((string)ViewBag.userType == "Patient")
+            {
+                <div>
+                    <a class="btn btn-primary btn-lg welcomeButton" href="@Url.Action("PatientUploadData","DataManagement")" role="button">Upload Data</a>
+                </div>
+
+                <p></p>
+                <div>
+                    <a class="btn btn-primary btn-lg welcomeButton" href="@Url.Action("PatientViewData","DataManagement")" role="button">View Uploaded Data</a>
+                </div>
+            }
+            else
+            {
+                <a class="btn btn-primary btn-lg" href="@Url.Action("DoctorViewPatients","DataManagement")" role="button">View Patients</a>
+            }
+            <br />
+            <br />
+
+        </div>
+    </div>
+
+
+</body>
+
+</html>
